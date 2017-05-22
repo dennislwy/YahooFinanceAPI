@@ -29,30 +29,30 @@ using YahooFinanceAPI;
 private void getHistoricalPrice(string symbol)
 {
 
-    //first get a valid token from Yahoo Finance
-	while (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
-    {
-		Token.Refresh();
-	}
+  //first get a valid token from Yahoo Finance
+  while (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
+  {
+    Token.Refresh();
+  }
 
-	List<HistoryPrice> hps = Historical.Get(symbol, new DateTime(2010, 1, 1), DateTime.Now);
+  List<HistoryPrice> hps = Historical.Get(symbol, new DateTime(2010, 1, 1), DateTime.Now);
 
-	//do something
+  //do something
 
 }
 
 private void getRawHistoricalPrice(string symbol)
 {
 
-    //first get a valid token from Yahoo Finance
-	while (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
-    {
-		Token.Refresh();
-	}
+  //first get a valid token from Yahoo Finance
+  while (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
+  {
+    Token.Refresh();
+  }
 
-	string csvdata = Historical.GetRaw(symbol, new DateTime(2010, 1, 1), DateTime.Now);
+  string csvdata = Historical.GetRaw(symbol, new DateTime(2010, 1, 1), DateTime.Now);
 
-	//process further
+  //process further
 
 }
 ```
@@ -95,7 +95,7 @@ Private Sub getHistoricalPrice(symbol As String)
 2. [yahoo_quote_download - Python version](https://github.com/c0redumb/yahoo_quote_download)
 
 ## Author
-This code is written by the Dennis Lee <wylee2000@gmail.com>
+This code is written by the Dennis Lee
 
 [1]: https://forums.yahoo.net/t5/Yahoo-Finance-help/Is-Yahoo-Finance-API-broken/m-p/251241/highlight/true#M3116
 [2]: https://github.com/c0redumb/yahoo_quote_download
