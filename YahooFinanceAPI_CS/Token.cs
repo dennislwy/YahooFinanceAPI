@@ -92,7 +92,8 @@ namespace YahooFinanceAPI
             {
                 //initialize on first time use
                 if (regex_crumb == null)
-                    regex_crumb = new Regex("crumb\":\"(?<crumb>\\w+)\"", RegexOptions.CultureInvariant, TimeSpan.FromSeconds(5));
+                    regex_crumb = new Regex("CrumbStore\":{\"crumb\":\"(?<crumb>\\w+)\"}", 
+                        RegexOptions.CultureInvariant | RegexOptions.Compiled, TimeSpan.FromSeconds(5));
 
                 MatchCollection matches = regex_crumb.Matches(html);
 

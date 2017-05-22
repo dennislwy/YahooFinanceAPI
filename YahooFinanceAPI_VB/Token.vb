@@ -77,9 +77,9 @@ Public Class Token
 
         Try
             'initialize on first time use
-            If regex_crumb Is Nothing Then regex_crumb = New Regex("crumb"":""(?<crumb>\w+)""",
-                                                                        RegexOptions.CultureInvariant,
-                                                                       TimeSpan.FromSeconds(5))
+            If regex_crumb Is Nothing Then regex_crumb = New Regex("CrumbStore"":{""crumb"":""(?<crumb>\w+)""}",
+                                                                   RegexOptions.CultureInvariant + RegexOptions.Compiled,
+                                                                   TimeSpan.FromSeconds(5))
 
             Dim matches As MatchCollection = regex_crumb.Matches(html)
 
