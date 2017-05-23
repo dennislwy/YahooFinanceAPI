@@ -19,7 +19,7 @@ namespace YahooFinanceAPI
         /// </summary>
         /// <param name="symbol">Stock ticker symbol</param>
         /// <param name="start">Starting datetime</param>
-        /// <param name="[end]">Ending datetime</param>
+        /// <param name="end">Ending datetime</param>
         /// <returns>List of history price</returns>
         public static List<HistoryPrice> Get(string symbol, DateTime start, DateTime end)
         {
@@ -46,8 +46,9 @@ namespace YahooFinanceAPI
         /// </summary>
         /// <param name="symbol">Stock ticker symbol</param>
         /// <param name="start">Starting datetime</param>
-        /// <param name="[end]">Ending datetime</param>
+        /// <param name="end">Ending datetime</param>
         /// <returns>Raw history price string</returns>
+
         public static string GetRaw(string symbol, DateTime start, DateTime end)
         {
 
@@ -121,7 +122,7 @@ namespace YahooFinanceAPI
                 {
 
                     string row = rows[i];
-                    if ((string.IsNullOrEmpty(row)))
+                    if (string.IsNullOrEmpty(row))
                         continue;
 
                     string[] cols = row.Split(',');
@@ -129,17 +130,16 @@ namespace YahooFinanceAPI
                         continue;
 
                     HistoryPrice hp = new HistoryPrice();
-                    var _with1 = hp;
-                    _with1.Date = DateTime.Parse(cols[0]);
-                    _with1.Open = Convert.ToDouble(cols[1]);
-                    _with1.High = Convert.ToDouble(cols[2]);
-                    _with1.Low = Convert.ToDouble(cols[3]);
-                    _with1.Close = Convert.ToDouble(cols[4]);
-                    _with1.AdjClose = Convert.ToDouble(cols[5]);
+                    hp.Date = DateTime.Parse(cols[0]);
+                    hp.Open = Convert.ToDouble(cols[1]);
+                    hp.High = Convert.ToDouble(cols[2]);
+                    hp.Low = Convert.ToDouble(cols[3]);
+                    hp.Close = Convert.ToDouble(cols[4]);
+                    hp.AdjClose = Convert.ToDouble(cols[5]);
 
                     //fixed issue in some currencies quote (e.g: SGDAUD=X)
                     if (cols[6] != "null")
-                        _with1.Volume = Convert.ToDouble(cols[6]);
+                        hp.Volume = Convert.ToDouble(cols[6]);
 
                     hps.Add(hp);
 

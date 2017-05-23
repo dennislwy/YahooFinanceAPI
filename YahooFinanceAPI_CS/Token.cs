@@ -18,8 +18,9 @@ namespace YahooFinanceAPI
         public static string Crumb { get; set; }
 
         private static Regex regex_crumb;
+
         /// <summary>
-        /// Refresh cookie and crumb value Yahoo Fianance
+        /// Refresh cookie and crumb value
         /// </summary>
         /// <param name="symbol">Stock ticker symbol</param>
         /// <returns></returns>

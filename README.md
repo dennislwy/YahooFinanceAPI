@@ -30,12 +30,12 @@ private void getHistoricalPrice(string symbol)
 {
 
   //first get a valid token from Yahoo Finance
-  while (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
+  while (string.IsNullOrEmpty(Token.Cookie) || string.IsNullOrEmpty(Token.Crumb))
   {
     Token.Refresh();
   }
 
-  List<HistoryPrice> hps = Historical.Get(symbol, new DateTime(2010, 1, 1), DateTime.Now);
+  List<HistoryPrice> hps = Historical.Get(symbol, DateTime.Now.AddMonths(-1), DateTime.Now);
 
   //do something
 
@@ -45,12 +45,12 @@ private void getRawHistoricalPrice(string symbol)
 {
 
   //first get a valid token from Yahoo Finance
-  while (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
+  while (string.IsNullOrEmpty(Token.Cookie) || string.IsNullOrEmpty(Token.Crumb))
   {
     Token.Refresh();
   }
 
-  string csvdata = Historical.GetRaw(symbol, new DateTime(2010, 1, 1), DateTime.Now);
+  string csvdata = Historical.GetRaw(symbol, DateTime.Now.AddMonths(-1), DateTime.Now);
 
   //process further
 
@@ -66,11 +66,11 @@ Imports YahooFinanceAPI
 Private Sub getHistoricalPrice(symbol As String)
 
     'first get a valid token from Yahoo Finance
-     Do Until (Token.Cookie <> "" And Token.Crumb <> "")
+     While (Token.Cookie = "" OrElse Token.Crumb = "")
          Token.Refresh()
-     Loop
+     End While
 
-     Dim hps As List(Of HistoryPrice) = Historical.Get(symbol, New DateTime(2010, 1, 1), DateTime.Now)
+     Dim hps As List(Of HistoryPrice) = Historical.Get(symbol, DateTime.Now.AddMonths(-1), DateTime.Now)
 
      'do something
 
@@ -79,11 +79,11 @@ Private Sub getHistoricalPrice(symbol As String)
  Private Sub getHistoricalPriceRaw(symbol As String)
 
      'first get a valid token from Yahoo Finance
-      Do Until (Token.Cookie <> "" And Token.Crumb <> "")
-          Token.Refresh()
-      Loop
+     While (Token.Cookie = "" OrElse Token.Crumb = "")
+         Token.Refresh()
+     End While
 
-      Dim csvdata as String = Historical.GetRaw(symbol, New DateTime(2010, 1, 1), DateTime.Now)
+      Dim csvdata as String = Historical.GetRaw(symbol, DateTime.Now.AddMonths(-1), DateTime.Now)
 
       'process further
 

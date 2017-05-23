@@ -5,7 +5,6 @@
 ''' Copyright Dennis Lee
 ''' 19 May 2017
 ''' 
-''' reference http://stackoverflow.com/questions/44030983/yahoo-finance-url-not-working/44036220#44036220
 ''' </summary>
 Public Class Historical
 

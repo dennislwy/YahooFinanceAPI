@@ -7,7 +7,6 @@ Imports System.Text.RegularExpressions
 ''' Copyright Dennis Lee
 ''' 19 May 2017
 ''' 
-''' reference http://stackoverflow.com/questions/44030983/yahoo-finance-url-not-working/44036220#44036220
 ''' </summary>
 Public Class Token
     Public Shared Property Cookie As String = ""
@@ -15,7 +14,7 @@ Public Class Token
     Private Shared regex_crumb As Regex
 
     ''' <summary>
-    ''' Refresh cookie and crumb value Yahoo Fianance
+    ''' Refresh cookie and crumb value
     ''' </summary>
     ''' <param name="symbol">Stock ticker symbol</param>
     ''' <returns></returns>
