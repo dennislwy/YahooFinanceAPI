@@ -38,7 +38,6 @@ namespace YahooFinanceAPI
 
             return HistoryPrices;
 
-
         }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace YahooFinanceAPI
         private static List<HistoryPrice> Parse(string csvData)
         {
 
-            dynamic hps = new List<HistoryPrice>();
+            List<HistoryPrice> hps = new List<HistoryPrice>();
 
             try
             {

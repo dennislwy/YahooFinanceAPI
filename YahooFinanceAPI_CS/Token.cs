@@ -44,9 +44,8 @@ namespace YahooFinanceAPI
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-
                     string cookie = response.GetResponseHeader("Set-Cookie").Split(';')[0];
-
+      
                     string html = "";
 
                     using (Stream stream = response.GetResponseStream())
@@ -94,7 +93,7 @@ namespace YahooFinanceAPI
                 //initialize on first time use
                 if (regex_crumb == null)
                     regex_crumb = new Regex("CrumbStore\":{\"crumb\":\"(?<crumb>\\w+)\"}", 
-                        RegexOptions.CultureInvariant | RegexOptions.Compiled, TimeSpan.FromSeconds(5));
+                        RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
                 MatchCollection matches = regex_crumb.Matches(html);
 

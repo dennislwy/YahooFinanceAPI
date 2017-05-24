@@ -1,4 +1,6 @@
 # YahooFinanceAPI
+[![Language](https://img.shields.io/badge/language-.NET-blue.svg?style=flat)](http://www.visualstudio.com) [![Email](https://img.shields.io/badge/email-dennis%40gsfcorp.com-blue.svg?style=flat)](mailto:dennis@gsfcorp.com)
+[![Website](https://img.shields.io/badge/website-gsfcorp.com-lightgrey.svg?style=flat)](http://www.gsfcorp.com)
 
 Starting 16 May 2017, Yahoo finance has discontinued its well used service of EOD (end-of-day) data download without notice or warning. This is confirmed by Yahoo employee in this [forum post][1].  
 
@@ -95,7 +97,7 @@ Private Sub getHistoricalPrice(symbol As String)
 2. [yahoo_quote_download - Python version](https://github.com/c0redumb/yahoo_quote_download)
 
 ## Author
-This code is written by the Dennis Lee
+This code is written by Dennis Lee
 
 [1]: https://forums.yahoo.net/t5/Yahoo-Finance-help/Is-Yahoo-Finance-API-broken/m-p/251241/highlight/true#M3116
 [2]: https://github.com/c0redumb/yahoo_quote_download
