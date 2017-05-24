@@ -1,6 +1,6 @@
 # YahooFinanceAPI
-[![Language](https://img.shields.io/badge/language-.NET-blue.svg?style=flat)](http://www.visualstudio.com) [![Email](https://img.shields.io/badge/email-dennis%40gsfcorp.com-blue.svg?style=flat)](mailto:dennis@gsfcorp.com)
-[![Website](https://img.shields.io/badge/website-gsfcorp.com-lightgrey.svg?style=flat)](http://www.gsfcorp.com)
+[![Language](https://img.shields.io/badge/.NET Framework-3.5-blue.svg?style=flat)](http://www.visualstudio.com)
+[![Language](https://img.shields.io/badge/License-MIT License-blue.svg?style=flat)](LICENSE.) 
 
 Starting 16 May 2017, Yahoo finance has discontinued its well used service of EOD (end-of-day) data download without notice or warning. This is confirmed by Yahoo employee in this [forum post][1].  
 
