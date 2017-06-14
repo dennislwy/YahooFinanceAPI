@@ -100,6 +100,10 @@ namespace YahooFinanceAPI
                 if (matches.Count > 0)
                 {
                     crumb = matches[0].Groups["crumb"].Value;
+
+                    //fixed unicode character 'SOLIDUS'
+                    if (crumb.Length != 11) 
+                        crumb = crumb.Replace("\\u002F", "/");
                 }
                 else
                 {

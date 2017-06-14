@@ -83,6 +83,9 @@ Public Class Token
 
             If (matches.Count > 0) Then
                 crumb = matches(0).Groups("crumb").Value
+
+                'fixed unicode character 'SOLIDUS'
+                If (crumb.Length <> 11) Then crumb = crumb.Replace("\u002F", "/")
             Else
                 Debug.Print("Regex no match")
             End If
