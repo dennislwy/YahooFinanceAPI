@@ -40,6 +40,21 @@ namespace YahooFinanceAPI
 
         }
 
+        
+        public static List<Dividend> GetDividends(string symbol, DateTime start, DateTime end)
+        {
+            List<Dividend> DividendPayments = new List<Dividend>();
+            try {
+                string csvData = GetRaw(symbol, start, end, "div");
+                if (csvData != null)
+                    DividendPayments = ParseDiv(csvData);
+            }
+            catch (Exception ex) {
+                Debug.Print(ex.Message);
+            }
+            return DividendPayments;
+        }
+
         /// <summary>
         /// Get raw stock historical price from Yahoo Finance
         /// </summary>
@@ -48,35 +63,28 @@ namespace YahooFinanceAPI
         /// <param name="end">Ending datetime</param>
         /// <returns>Raw history price string</returns>
 
-        public static string GetRaw(string symbol, DateTime start, DateTime end)
+        public static string GetRaw(string symbol, DateTime start, DateTime end, string dataType = "history")
         {
-
             string csvData = null;
-
             try
             {
-                string url = "https://query1.finance.yahoo.com/v7/finance/download/{0}?period1={1}&period2={2}&interval=1d&events=history&crumb={3}";
-
+                string url = "https://query1.finance.yahoo.com/v7/finance/download/{0}?period1={1}&period2={2}&interval=1d&events={4}&crumb={3}";               
                 //if no token found, refresh it
                 if (string.IsNullOrEmpty(Token.Cookie) | string.IsNullOrEmpty(Token.Crumb))
                 {
                     if (!Token.Refresh(symbol))
                         return GetRaw(symbol, start, end);
                 }
-
-                url = string.Format(url, symbol, Math.Round(DateTimeToUnixTimestamp(start), 0), Math.Round(DateTimeToUnixTimestamp(end), 0), Token.Crumb);
-
+                url = string.Format(url, symbol, Math.Round(DateTimeToUnixTimestamp(start), 0), Math.Round(DateTimeToUnixTimestamp(end), 0), Token.Crumb, dataType);
                 using (WebClient wc = new WebClient())
                 {
                     wc.Headers.Add(HttpRequestHeader.Cookie, Token.Cookie);
                     csvData = wc.DownloadString(url);
                 }
-
             }
             catch (WebException webEx)
             {
                 HttpWebResponse response = (HttpWebResponse)webEx.Response;
-
                 //Re-fecthing token
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -90,15 +98,39 @@ namespace YahooFinanceAPI
                 {
                     throw;
                 }
-
             }
             catch (Exception ex)
             {
                 Debug.Print(ex.Message);
             }
-
             return csvData;
+        }
 
+        private static List<Dividend> ParseDiv(string csvData)
+        {
+            List<Dividend> hps = new List<Dividend>();
+            try {
+                string[] rows = csvData.Split(Convert.ToChar(10));
+                //row(0) was ignored because is column names 
+                //data is read from oldest to latest
+                for (int i = 1; i <= rows.Length - 1; i++) {
+                    string row = rows[i];
+                    if (string.IsNullOrEmpty(row))
+                        continue;
+                    string[] cols = row.Split(',');
+                    if (cols[1] == "null")
+                        continue;
+                    Dividend currDiv = new Dividend();
+                    currDiv.Date = DateTime.Parse(cols[0]);
+                    currDiv.Dividends = Convert.ToDouble(cols[1]);
+ 
+                    hps.Add(currDiv);
+                }
+            }
+            catch (Exception ex) {
+                Debug.Print(ex.Message);
+            }
+            return hps;
         }
 
         /// <summary>
@@ -174,6 +206,13 @@ namespace YahooFinanceAPI
 
         #endregion
 
+    }
+
+    public class Dividend
+    {
+        public DateTime Date { get; set; }
+        public double Dividends { get; set; }
+        
     }
 
     public class HistoryPrice
