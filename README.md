@@ -1,4 +1,4 @@
-# YahooFinanceApi 
+# YahooFinanceAPI 
 ![Language](https://img.shields.io/badge/.NET%20Framework-4.5-blue.svg?style=flat) [![License](https://img.shields.io/badge/License-MIT%20License-blue.svg?style=flat)](LICENSE)
 
 Starting 16 May 2017, Yahoo finance has discontinued its well used service of EOD (end-of-day) data download without notice or warning. This is confirmed by Yahoo employee in this [forum post][1].  
@@ -21,14 +21,14 @@ Date, Open, High, Low, Close, Adjusted Close, Volume
 
 ## Quick Start  
 1. Run **build.bat** to build DLL  
-2. Copy bin\YahooFinanceApi.dll and bin\YahooFinanceApi.xml files into your Visual Studio project folder  
-3. In Visual Studio, add reference YahooFinanceApi.dll  
+2. Copy **bin\YahooFinanceAPI.dll** and **bin\YahooFinanceAPI.xml** files into your Visual Studio project folder  
+3. In Visual Studio, add reference **YahooFinanceAPI.dll**  
 
 ## Usage
 
 ### C#
 ```cs
-using YahooFinanceApi;
+using YahooFinanceAPI;
 
 ...
 
@@ -41,7 +41,7 @@ private async Task GetHistoricalPrice(string symbol)
     await Token.RefreshAsync().ConfigureAwait(false);
   }
 
-  List<HistoryPrice> hps = await Historical.GetAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(false);
+  List<HistoryPrice> hps = await Historical.GetPriceAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(false);
 
   //do something
 
@@ -65,24 +65,24 @@ private async Task GetRawHistoricalPrice(string symbol)
 
 ### VB
 ```vb
-Imports YahooFinanceApi
+Imports YahooFinanceAPI
 
 ...
 
-Private Async Sub GetHistoricalPrice(symbol As String)
+Private Async Function GetHistoricalPrice(symbol As String) as Task
 
     'first get a valid token from Yahoo Finance
      While (Token.Cookie = "" OrElse Token.Crumb = "")
          Await Token.RefreshAsync().ConfigureAwait(False)
      End While
 
-     Dim hps As List(Of HistoryPrice) = Await Historical.GetAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
+     Dim hps As List(Of HistoryPrice) = Await Historical.GetPriceAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
 
      'do something
 
- End Sub
+ End Function
 
- Private Async Sub GetHistoricalPriceRaw(symbol As String)
+ Private Async Function GetHistoricalPriceRaw(symbol As String) as Task
 
      'first get a valid token from Yahoo Finance
      While (Token.Cookie = "" OrElse Token.Crumb = "")
@@ -93,7 +93,7 @@ Private Async Sub GetHistoricalPrice(symbol As String)
 
       'process further
 
-  End Sub
+  End Function
 ```
 
 ## References
