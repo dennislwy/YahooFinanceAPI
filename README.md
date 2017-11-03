@@ -1,5 +1,5 @@
-# YahooFinanceAPI  
-![Language](https://img.shields.io/badge/.NET%20Framework-3.5-blue.svg?style=flat) [![License](https://img.shields.io/badge/License-MIT%20License-blue.svg?style=flat)](LICENSE)
+# YahooFinanceApi 
+![Language](https://img.shields.io/badge/.NET%20Framework-4.5-blue.svg?style=flat) [![License](https://img.shields.io/badge/License-MIT%20License-blue.svg?style=flat)](LICENSE)
 
 Starting 16 May 2017, Yahoo finance has discontinued its well used service of EOD (end-of-day) data download without notice or warning. This is confirmed by Yahoo employee in this [forum post][1].  
 
@@ -19,39 +19,44 @@ Date, Open, High, Low, Close, Adjusted Close, Volume
 
 3. The order of the rows for historical quote by the new API is chronical (vs counter-chronical as the old API).
 
+## Quick Start  
+1. Run **build.bat** to build DLL  
+2. Copy bin\YahooFinanceApi.dll and bin\YahooFinanceApi.xml files into your Visual Studio project folder  
+3. In Visual Studio, add reference YahooFinanceApi.dll  
+
 ## Usage
 
 ### C#
 ```cs
-using YahooFinanceAPI;
+using YahooFinanceApi;
 
 ...
 
-private void getHistoricalPrice(string symbol)
+private async Task GetHistoricalPrice(string symbol)
 {
 
   //first get a valid token from Yahoo Finance
   while (string.IsNullOrEmpty(Token.Cookie) || string.IsNullOrEmpty(Token.Crumb))
   {
-    Token.Refresh();
+    await Token.RefreshAsync().ConfigureAwait(false);
   }
 
-  List<HistoryPrice> hps = Historical.Get(symbol, DateTime.Now.AddMonths(-1), DateTime.Now);
+  List<HistoryPrice> hps = await Historical.GetAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(false);
 
   //do something
 
 }
 
-private void getRawHistoricalPrice(string symbol)
+private async Task GetRawHistoricalPrice(string symbol)
 {
 
   //first get a valid token from Yahoo Finance
   while (string.IsNullOrEmpty(Token.Cookie) || string.IsNullOrEmpty(Token.Crumb))
   {
-    Token.Refresh();
+    await Token.RefreshAsync().ConfigureAwait(false);
   }
 
-  string csvdata = Historical.GetRaw(symbol, DateTime.Now.AddMonths(-1), DateTime.Now);
+  string csvdata = await Historical.GetRawAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(false);
 
   //process further
 
@@ -60,31 +65,31 @@ private void getRawHistoricalPrice(string symbol)
 
 ### VB
 ```vb
-Imports YahooFinanceAPI
+Imports YahooFinanceApi
 
 ...
 
-Private Sub getHistoricalPrice(symbol As String)
+Private Async Sub GetHistoricalPrice(symbol As String)
 
     'first get a valid token from Yahoo Finance
      While (Token.Cookie = "" OrElse Token.Crumb = "")
-         Token.Refresh()
+         Await Token.RefreshAsync().ConfigureAwait(False)
      End While
 
-     Dim hps As List(Of HistoryPrice) = Historical.Get(symbol, DateTime.Now.AddMonths(-1), DateTime.Now)
+     Dim hps As List(Of HistoryPrice) = Await Historical.GetAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
 
      'do something
 
  End Sub
 
- Private Sub getHistoricalPriceRaw(symbol As String)
+ Private Async Sub GetHistoricalPriceRaw(symbol As String)
 
      'first get a valid token from Yahoo Finance
      While (Token.Cookie = "" OrElse Token.Crumb = "")
-         Token.Refresh()
+         Await Token.RefreshAsync().ConfigureAwait(False)
      End While
 
-      Dim csvdata as String = Historical.GetRaw(symbol, DateTime.Now.AddMonths(-1), DateTime.Now)
+      Dim csvdata as String = Await Historical.GetRawAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
 
       'process further
 
