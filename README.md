@@ -28,7 +28,9 @@ Date, Open, High, Low, Close, Adjusted Close, Volume
 
 ### C#
 ```cs
+using System.Threading.Tasks;
 using YahooFinanceAPI;
+using YahooFinanceAPI.Models;
 
 ...
 
@@ -41,7 +43,7 @@ private async Task GetHistoricalPrice(string symbol)
     await Token.RefreshAsync().ConfigureAwait(false);
   }
 
-  List<HistoryPrice> hps = await Historical.GetPriceAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(false);
+  var hps = await Historical.GetPriceAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(false);
 
   //do something
 
@@ -65,7 +67,9 @@ private async Task GetRawHistoricalPrice(string symbol)
 
 ### VB
 ```vb
+Imports System.Threading.Tasks
 Imports YahooFinanceAPI
+Imports YahooFinanceAPI.Models
 
 ...
 
@@ -76,7 +80,7 @@ Private Async Function GetHistoricalPrice(symbol As String) as Task
          Await Token.RefreshAsync().ConfigureAwait(False)
      End While
 
-     Dim hps As List(Of HistoryPrice) = Await Historical.GetPriceAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
+     Dim hps = Await Historical.GetPriceAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
 
      'do something
 
@@ -89,9 +93,9 @@ Private Async Function GetHistoricalPrice(symbol As String) as Task
          Await Token.RefreshAsync().ConfigureAwait(False)
      End While
 
-      Dim csvdata as String = Await Historical.GetRawAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
+     Dim csvdata = Await Historical.GetRawAsync(symbol, DateTime.Now.AddMonths(-1), DateTime.Now).ConfigureAwait(False)
 
-      'process further
+     'process further
 
   End Function
 ```

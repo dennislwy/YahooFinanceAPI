@@ -17,8 +17,8 @@ namespace YahooFinanceAPI
     {
         #region Public Members
 
-        public static string Cookie { get; set; }
-        public static string Crumb { get; set; }
+        public static string Cookie { get; internal set; }
+        public static string Crumb { get; internal set; }
 
         #endregion Public Members
 

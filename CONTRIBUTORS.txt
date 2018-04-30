@@ -8,3 +8,5 @@ Code Contributors:
 
 Code Snippets:
 * Dmitry Fedorkov
+* ScottCher
+* Ali Zahid

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using YahooFinanceAPI.Models;
+using YahooFinanceAPI.Utils;
 
 namespace YahooFinanceAPI
 {
@@ -83,7 +84,8 @@ namespace YahooFinanceAPI
                         return await GetRawAsync(symbol, start, end).ConfigureAwait(false);
                 }
 
-                url = string.Format(url, symbol, Math.Round(DateTimeToUnixTimestamp(start), 0), Math.Round(DateTimeToUnixTimestamp(end), 0), eventType, Token.Crumb);
+                url = string.Format(url, symbol, Math.Round(DateTimeConverter.ToUnixTimestamp(start), 0),
+                    Math.Round(DateTimeConverter.ToUnixTimestamp(end), 0), eventType, Token.Crumb);
 
                 using (var wc = new WebClient())
                 {
@@ -152,7 +154,7 @@ namespace YahooFinanceAPI
                         };
 
                         //fixed issue in some currencies quote (e.g: SGDAUD=X)
-                        if (cols[6] != "null") itm.Volume = Convert.ToDouble(cols[6]);
+                        if (cols[6] != "null") itm.Volume = Convert.ToInt64(cols[6]);
 
                         lst.Add(itm);
                     }
@@ -207,18 +209,6 @@ namespace YahooFinanceAPI
                 return lst;
             }).ConfigureAwait(false);
         }
-
-        #region Unix Timestamp Converter
-
-        //credits to Dmitry Fedorkov
-        //reference http://stackoverflow.com/questions/249760/how-to-convert-a-unix-timestamp-to-datetime-and-vice-versa
-        private static double DateTimeToUnixTimestamp(DateTime dateTime)
-        {
-            //Unix timestamp Is seconds past epoch
-            return (dateTime.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
-        }
-
-        #endregion Unix Timestamp Converter
 
         #endregion Private Methods
     }
